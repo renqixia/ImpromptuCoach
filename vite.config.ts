@@ -9,15 +9,8 @@ export default defineConfig(({mode}) => {
     plugins: [react(), tailwindcss()],
     base: './',
     build: {
-      assetsInlineLimit: 100000000,
-      rollupOptions: {
-        output: {
-          manualChunks: undefined,
-          entryFileNames: `assets/[name].js`,
-          chunkFileNames: `assets/[name].js`,
-          assetFileNames: `assets/[name].[ext]`,
-        },
-      },
+      assetsInlineLimit: 65536, // 64kb 以下的资源直接内联，减少文件数量
+      cssCodeSplit: false, // 强制 CSS 合并为一个文件
     },
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
